@@ -1,20 +1,43 @@
 import { useState, useEffect } from "react";
-import { getAllUsers } from "../services/userService";
+import { deleteUser, getAllUsers } from "../services/userService";
 import UserListItem from "./UserListItem";
+import DeleteModal from "./DeleteModal";
 
-const UsersList = () => {
+const UsersList = ({ onUserAdding }) => {
   const [users, setUsers] = useState([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [userForDeleteId, setUserForDeleteId] = useState('')
 
   useEffect(() => {
-    getAllUsers()
-    .then(data => {
-        setUsers(Object.values(data));
+    getAllUsers().then((data) => {
+      setUsers(Object.values(data));
     });
-  }, [])
+  }, []);
 
+  const showDeleteModalClickHandler = async (userId) => {
+    setShowDeleteModal(true);
+    setUserForDeleteId(userId);
+  };
+
+  const hideDeleteModalClickHandler = () =>{
+    setShowDeleteModal(false);
+    setUserForDeleteId('');
+  }
+
+  const deleteUserClickHandler = async() =>{
+    // delete request to the api
+    await deleteUser(userForDeleteId);
+    setUsers(users => users.filter(u => u._id !== userForDeleteId));
+
+    setShowDeleteModal(false);
+    setUserForDeleteId('');
+
+    //delete user from users state
+  }
 
   return (
     <div className="table-wrapper">
+      {showDeleteModal && <DeleteModal onDelete={deleteUserClickHandler} onCancel={hideDeleteModalClickHandler}/>}
       <table className="table">
         <thead>
           <tr>
@@ -113,16 +136,18 @@ const UsersList = () => {
           </tr>
         </thead>
         <tbody>
-            {users.map(user => (
-                <UserListItem 
-                key={user._id}
-                {...user}
-                />
-            ))}
-          
+          {users.map((user) => (
+            <UserListItem
+              key={user._id}
+              {...user}
+              onDeleteClickHandler={showDeleteModalClickHandler}
+            />
+          ))}
         </tbody>
       </table>
-      <button className="btn-add btn">Add new user</button>
+      <button onClick={onUserAdding} className="btn-add btn">
+        Add new user
+      </button>
     </div>
   );
 };
