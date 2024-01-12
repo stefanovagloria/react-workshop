@@ -782,9 +782,13 @@ html {
   }
   
   /* Add/Edit form styles  */
+
+  /* width: 100%;*/
+ /* height: 100%;*/
   .user-container {
     width: 100%;
     height: 100%;
+    overflow: visible;
   }
   
   .headers {

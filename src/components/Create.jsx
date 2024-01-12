@@ -1,29 +1,10 @@
 import { createUser } from "../services/userService";
 
-const Create = ({ onClose }) => {
-  const onSaveClickHandler = async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-
-    const data = Object.fromEntries(formData);
-
-    const result = await createUser({
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      imageUrl: data.imageUrl,
-      phoneNumber: data.phoneNumber,
-      createdAt: new Date().getDate(),
-      updatedAt: "",
-      address: {
-        country: data.country,
-        city: data.city,
-        street: data.street,
-        streetNumber: data.streetNumber,
-      },
-    });
-  };
+const Create = ({ 
+  onClose,
+  onCreate
+ }) => {
+  
   
   return (
     <div className="overlay">
@@ -50,7 +31,7 @@ const Create = ({ onClose }) => {
               </svg>
             </button>
           </header>
-          <form onSubmit={onSaveClickHandler}>
+          <form onSubmit={onCreate}>
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="firstName">First name</label>

@@ -10,6 +10,7 @@ const UserListItem = ({
   phoneNumber,
   createdAt,
   onDeleteClickHandler,
+  onInfoBtnClickHandler,
 }) => {
 
 
@@ -69,7 +70,7 @@ const UserListItem = ({
               ></path>
             </svg>
           </button>
-          <button className="btn info-btn" title="Info">
+          <button onClick={() => onInfoBtnClickHandler(_id)} className="btn info-btn" title="Info">
             <svg
               aria-hidden="true"
               focusable="false"
