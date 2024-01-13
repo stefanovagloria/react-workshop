@@ -2,18 +2,9 @@ import { useEffect, useState } from "react";
 import { getUserById } from "../services/userService";
 
 const UserDetail = ({
-    userId,
+    user,
     onClose
 }) => {
-
-    const [user, setUser] = useState({});
-
-    useEffect(() =>{
-        getUserById(userId)
-        .then(data => setUser(data));
-    },[])
-
-    console.log(user)
 
   return (
     <div className="overlay">

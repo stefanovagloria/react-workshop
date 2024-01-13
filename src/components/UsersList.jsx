@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { deleteUser, getAllUsers, createUser } from "../services/userService";
+import { deleteUser, getAllUsers, createUser, getUserById } from "../services/userService";
 
 import UserListItem from "./UserListItem";
 import DeleteModal from "./DeleteModal";
@@ -15,7 +15,7 @@ const UsersList = () => {
   const [userForDeleteId, setUserForDeleteId] = useState("");
 
   const [showUserDetail, setShowUserDetail] = useState(false);
-  const [userDetailId, setUserDetailId] = useState("");
+  const [userDetail, setUserDetail] = useState("");
 
 
   useEffect(() => {
@@ -28,15 +28,16 @@ const UsersList = () => {
 
   const onCloseClickHandler = () => setShowCreate(false);
 
-  const showUserDetailClickHandler = (userId) => {
+  const showUserDetailClickHandler = async (userId) => {
+    const user = await getUserById(userId);
+    setUserDetail(user)
     setShowUserDetail(true);
-    setUserDetailId(userId);
 
   }
 
-  const onCloseUserInfoClickHandler = () => {
+  const onCloseUserInfoClickHandler =  () => {
     setShowUserDetail(false);
-    setUserDetailId('');
+    setUserDetail('');
   }
 
   const showDeleteModalClickHandler = async (userId) => {
@@ -85,7 +86,7 @@ const UsersList = () => {
   };
   return (
     <>
-    {showUserDetail && <UserDetail userId={userDetailId} onClose={onCloseUserInfoClickHandler}/>}
+    {showUserDetail && <UserDetail user={userDetail} onClose={onCloseUserInfoClickHandler}/>}
       {showCreate && (
         <Create
           onClose={onCloseClickHandler}
