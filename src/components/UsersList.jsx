@@ -1,10 +1,16 @@
 import { useState, useEffect } from "react";
-import { deleteUser, getAllUsers, createUser, getUserById } from "../services/userService";
+import {
+  deleteUser,
+  getAllUsers,
+  createUser,
+  getUserById,
+} from "../services/userService";
 
 import UserListItem from "./UserListItem";
 import DeleteModal from "./DeleteModal";
 import Create from "./Create";
 import UserDetail from "./UserDetail";
+import Edit from "./Edit";
 
 const UsersList = () => {
   const [users, setUsers] = useState([]);
@@ -17,6 +23,7 @@ const UsersList = () => {
   const [showUserDetail, setShowUserDetail] = useState(false);
   const [userDetail, setUserDetail] = useState("");
 
+  const [userEditId, setUserEditId] = useState("");
 
   useEffect(() => {
     getAllUsers().then((data) => {
@@ -30,15 +37,14 @@ const UsersList = () => {
 
   const showUserDetailClickHandler = async (userId) => {
     const user = await getUserById(userId);
-    setUserDetail(user)
+    setUserDetail(user);
     setShowUserDetail(true);
+  };
 
-  }
-
-  const onCloseUserInfoClickHandler =  () => {
+  const onCloseUserInfoClickHandler = () => {
     setShowUserDetail(false);
-    setUserDetail('');
-  }
+    setUserDetail("");
+  };
 
   const showDeleteModalClickHandler = async (userId) => {
     setShowDeleteModal(true);
@@ -81,12 +87,22 @@ const UsersList = () => {
       },
     });
 
-    setUsers(users => [...users, createdUser]);
+    setUsers((users) => [...users, createdUser]);
     setShowCreate(false);
   };
+
+  const showEditClickHandler = async (userId) => {
+    setUserEditId(userId);
+  };
+
+  const onCloseUserEditClickHandler = () => setUserEditId("");
+
   return (
     <>
-    {showUserDetail && <UserDetail user={userDetail} onClose={onCloseUserInfoClickHandler}/>}
+    {userEditId && <Edit userId={userEditId} onClose={onCloseUserEditClickHandler}/>}
+      {showUserDetail && (
+        <UserDetail user={userDetail} onClose={onCloseUserInfoClickHandler} />
+      )}
       {showCreate && (
         <Create
           onClose={onCloseClickHandler}
@@ -204,6 +220,7 @@ const UsersList = () => {
                 {...user}
                 onDeleteClickHandler={showDeleteModalClickHandler}
                 onInfoBtnClickHandler={showUserDetailClickHandler}
+                onEditClickHandler={showEditClickHandler}
               />
             ))}
           </tbody>
