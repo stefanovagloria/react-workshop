@@ -13,7 +13,14 @@ const Edit = ({
         .then(data => setUser(data));
     }, [])
 
-    console.log(user)
+
+    const onChangeHandler = (e) =>{
+
+    }
+
+    const onSumbitHandler = (e) =>{
+
+    }
 
   return (
     <div className="overlay">
@@ -40,7 +47,7 @@ const Edit = ({
               </svg>
             </button>
           </header>
-          <form>
+          <form onSubmit={onSumbitHandler}>
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="firstName">First name</label>
@@ -48,7 +55,7 @@ const Edit = ({
                   <span>
                     <i className="fa-solid fa-user"></i>
                   </span>
-                  <input id="firstName" name="firstName" type="text" />
+                  <input id="firstName" name="firstName" type="text" value={user.firstName} onChange={onChangeHandler}/>
                 </div>
               </div>
               <div className="form-group">
@@ -57,7 +64,7 @@ const Edit = ({
                   <span>
                     <i className="fa-solid fa-user"></i>
                   </span>
-                  <input id="lastName" name="lastName" type="text" />
+                  <input id="lastName" name="lastName" type="text" value={user.lastName} onChange={onChangeHandler}/>
                 </div>
               </div>
             </div>
@@ -69,7 +76,7 @@ const Edit = ({
                   <span>
                     <i className="fa-solid fa-envelope"></i>
                   </span>
-                  <input id="email" name="email" type="text" />
+                  <input id="email" name="email" type="text" value={user.email} onChange={onChangeHandler}/>
                 </div>
               </div>
               <div className="form-group">
@@ -78,7 +85,7 @@ const Edit = ({
                   <span>
                     <i className="fa-solid fa-phone"></i>
                   </span>
-                  <input id="phoneNumber" name="phoneNumber" type="text" />
+                  <input id="phoneNumber" name="phoneNumber" type="text" value={user.phoneNumber} onChange={onChangeHandler}/>
                 </div>
               </div>
             </div>
@@ -89,7 +96,7 @@ const Edit = ({
                 <span>
                   <i className="fa-solid fa-image"></i>
                 </span>
-                <input id="imageUrl" name="imageUrl" type="text" />
+                <input id="imageUrl" name="imageUrl" type="text" value={user.imageUrl} onChange={onChangeHandler}/>
               </div>
             </div>
 
@@ -100,7 +107,7 @@ const Edit = ({
                   <span>
                     <i className="fa-solid fa-map"></i>
                   </span>
-                  <input id="country" name="country" type="text" />
+                  <input id="country" name="country" type="text" value={user?.address?.country} onChange={onChangeHandler}/>
                 </div>
               </div>
               <div className="form-group">
@@ -109,7 +116,7 @@ const Edit = ({
                   <span>
                     <i className="fa-solid fa-city"></i>
                   </span>
-                  <input id="city" name="city" type="text" />
+                  <input id="city" name="city" type="text"  value={user?.address?.city} onChange={onChangeHandler}/>
                 </div>
               </div>
             </div>
@@ -121,7 +128,7 @@ const Edit = ({
                   <span>
                     <i className="fa-solid fa-map"></i>
                   </span>
-                  <input id="street" name="street" type="text" />
+                  <input id="street" name="street" type="text"  value={user?.address?.street} onChange={onChangeHandler}/>
                 </div>
               </div>
               <div className="form-group">
@@ -130,7 +137,7 @@ const Edit = ({
                   <span>
                     <i className="fa-solid fa-house-chimney"></i>
                   </span>
-                  <input id="streetNumber" name="streetNumber" type="text" />
+                  <input id="streetNumber" name="streetNumber" type="text"  value={user?.address?.streetNumber}  onChange={onChangeHandler}/>
                 </div>
               </div>
             </div>
