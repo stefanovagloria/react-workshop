@@ -1,26 +1,30 @@
 import { useEffect, useState } from "react";
 import { getUserById } from "../services/userService";
 
-const Edit = ({
-    userId,
-    onClose
-}) => {
-
-    const [user, setUser] = useState({});
-
-    useEffect(() =>{
-        getUserById(userId)
-        .then(data => setUser(data));
-    }, [])
-
-
-    const onChangeHandler = (e) =>{
-
+const Edit = ({ userId, onClose }) => {
+  const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    imageUrl: "",
+    phoneNumber: "",
+    createdAt: "",
+    updatedAt: "",
+    address: {
+      country: "",
+      city: "",
+      street: "",
+      streetNumber: "",
     }
+  });
 
-    const onSumbitHandler = (e) =>{
+  useEffect(() => {
+    getUserById(userId).then((data) => setUser(data));
+  }, []);
 
-    }
+  const onChangeHandler = (e) => {};
+
+  const onSumbitHandler = (e) => {};
 
   return (
     <div className="overlay">
@@ -55,7 +59,13 @@ const Edit = ({
                   <span>
                     <i className="fa-solid fa-user"></i>
                   </span>
-                  <input id="firstName" name="firstName" type="text" value={user.firstName} onChange={onChangeHandler}/>
+                  <input
+                    id="firstName"
+                    name="firstName"
+                    type="text"
+                    value={user.firstName}
+                    onChange={onChangeHandler}
+                  />
                 </div>
               </div>
               <div className="form-group">
@@ -64,7 +74,13 @@ const Edit = ({
                   <span>
                     <i className="fa-solid fa-user"></i>
                   </span>
-                  <input id="lastName" name="lastName" type="text" value={user.lastName} onChange={onChangeHandler}/>
+                  <input
+                    id="lastName"
+                    name="lastName"
+                    type="text"
+                    value={user.lastName}
+                    onChange={onChangeHandler}
+                  />
                 </div>
               </div>
             </div>
@@ -76,7 +92,13 @@ const Edit = ({
                   <span>
                     <i className="fa-solid fa-envelope"></i>
                   </span>
-                  <input id="email" name="email" type="text" value={user.email} onChange={onChangeHandler}/>
+                  <input
+                    id="email"
+                    name="email"
+                    type="text"
+                    value={user.email}
+                    onChange={onChangeHandler}
+                  />
                 </div>
               </div>
               <div className="form-group">
@@ -85,7 +107,13 @@ const Edit = ({
                   <span>
                     <i className="fa-solid fa-phone"></i>
                   </span>
-                  <input id="phoneNumber" name="phoneNumber" type="text" value={user.phoneNumber} onChange={onChangeHandler}/>
+                  <input
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    type="text"
+                    value={user.phoneNumber}
+                    onChange={onChangeHandler}
+                  />
                 </div>
               </div>
             </div>
@@ -96,7 +124,13 @@ const Edit = ({
                 <span>
                   <i className="fa-solid fa-image"></i>
                 </span>
-                <input id="imageUrl" name="imageUrl" type="text" value={user.imageUrl} onChange={onChangeHandler}/>
+                <input
+                  id="imageUrl"
+                  name="imageUrl"
+                  type="text"
+                  value={user.imageUrl}
+                  onChange={onChangeHandler}
+                />
               </div>
             </div>
 
@@ -107,7 +141,13 @@ const Edit = ({
                   <span>
                     <i className="fa-solid fa-map"></i>
                   </span>
-                  <input id="country" name="country" type="text" value={user?.address?.country} onChange={onChangeHandler}/>
+                  <input
+                    id="country"
+                    name="country"
+                    type="text"
+                    value={user?.address?.country}
+                    onChange={onChangeHandler}
+                  />
                 </div>
               </div>
               <div className="form-group">
@@ -116,7 +156,13 @@ const Edit = ({
                   <span>
                     <i className="fa-solid fa-city"></i>
                   </span>
-                  <input id="city" name="city" type="text"  value={user?.address?.city} onChange={onChangeHandler}/>
+                  <input
+                    id="city"
+                    name="city"
+                    type="text"
+                    value={user?.address?.city}
+                    onChange={onChangeHandler}
+                  />
                 </div>
               </div>
             </div>
@@ -128,7 +174,13 @@ const Edit = ({
                   <span>
                     <i className="fa-solid fa-map"></i>
                   </span>
-                  <input id="street" name="street" type="text"  value={user?.address?.street} onChange={onChangeHandler}/>
+                  <input
+                    id="street"
+                    name="street"
+                    type="text"
+                    value={user?.address?.street}
+                    onChange={onChangeHandler}
+                  />
                 </div>
               </div>
               <div className="form-group">
@@ -137,7 +189,13 @@ const Edit = ({
                   <span>
                     <i className="fa-solid fa-house-chimney"></i>
                   </span>
-                  <input id="streetNumber" name="streetNumber" type="text"  value={user?.address?.streetNumber}  onChange={onChangeHandler}/>
+                  <input
+                    id="streetNumber"
+                    name="streetNumber"
+                    type="text"
+                    value={user?.address?.streetNumber}
+                    onChange={onChangeHandler}
+                  />
                 </div>
               </div>
             </div>
@@ -145,7 +203,12 @@ const Edit = ({
               <button id="action-save" className="btn" type="submit">
                 Save
               </button>
-              <button onClick={onClose} id="action-cancel" className="btn" type="button">
+              <button
+                onClick={onClose}
+                id="action-cancel"
+                className="btn"
+                type="button"
+              >
                 Cancel
               </button>
             </div>
