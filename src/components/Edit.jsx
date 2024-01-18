@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getUserById } from "../services/userService";
+import { editUser, getUserById } from "../services/userService";
 
-const Edit = ({ userId, onClose }) => {
+const Edit = ({ userId, onClose, onEdit }) => {
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -15,16 +15,35 @@ const Edit = ({ userId, onClose }) => {
       city: "",
       street: "",
       streetNumber: "",
-    }
+    },
   });
 
   useEffect(() => {
     getUserById(userId).then((data) => setUser(data));
   }, []);
 
-  const onChangeHandler = (e) => {};
+  const onChangeHandler = (e) => {
+    if (
+      e.target.name !== "country" &&
+      e.target.name !== "city" &&
+      e.target.name !== "street" &&
+      e.target.name !== "streetNumber"
+    ) {
+      setUser((user) => ({ ...user, [e.target.name]: e.target.value }));
+    } else {
+      setUser((user) => ({
+        ...user,
+        address: { ...user.address, [e.target.name]: e.target.value },
+      }));
+    }
+  };
 
-  const onSumbitHandler = (e) => {};
+  const onSumbitHandler = async (e) => {
+    e.preventDefault();
+
+    const editedUser = await editUser(userId, user);
+    onEdit(userId, editedUser);
+  };
 
   return (
     <div className="overlay">
