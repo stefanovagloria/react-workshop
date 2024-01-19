@@ -97,17 +97,24 @@ const UsersList = () => {
 
   const onCloseUserEditClickHandler = () => setUserEditId("");
 
-  const onEditHandler = (userId, editedUser) =>{
-    setUsers(users => {
-      const updatedUsers = users.filter(user => user._id !== userId);
+  const onEditHandler = (userId, editedUser) => {
+    setUsers((users) => {
+      const updatedUsers = users.filter((user) => user._id !== userId);
       return [...updatedUsers, editedUser];
-    })
-  
-  }
+    });
+
+    setUserEditId("");
+  };
 
   return (
     <>
-    {userEditId && <Edit userId={userEditId} onClose={onCloseUserEditClickHandler} onEdit={onEditHandler}/>}
+      {userEditId && (
+        <Edit
+          userId={userEditId}
+          onClose={onCloseUserEditClickHandler}
+          onEdit={onEditHandler}
+        />
+      )}
       {showUserDetail && (
         <UserDetail user={userDetail} onClose={onCloseUserInfoClickHandler} />
       )}
