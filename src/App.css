@@ -647,7 +647,8 @@ html {
   
   .table-overlap {
     text-align: center;
-    margin-right: 30px;
+    width: 10%;
+    
   }
   
   .loading-shade svg {
