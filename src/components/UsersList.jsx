@@ -117,10 +117,16 @@ const UsersList = () => {
     setUserEditId("");
   };
 
-  const onSortClickHandler = (e) =>{
-    const sortCriteria = e.target;
-    console.log(e.target)
-  }
+  const onSortClickHandler = (e) => {
+    let sortCriteria;
+
+    e.target.textContent === ""
+      ? (sortCriteria = e.target.parentElement.textContent)
+      : (sortCriteria = e.target.textContent);
+   
+
+      console.log(sortCriteria)
+  };
 
   return (
     <>
